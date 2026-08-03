@@ -64,7 +64,7 @@ The backend requires a PostgreSQL database. Set the connection string `DATABASE_
 
 ```env
 PORT=5000
-DATABASE_URL=postgresql://neondb_owner:npg_S9jPINrXF0Wi@ep-purple-cell-aso4a5x5-pooler.c-4.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+DATABASE_URL=postgresql://username:password@your-database-host.neon.tech/neondb?sslmode=require
 JWT_SECRET=your_jwt_secret_key
 ```
 
