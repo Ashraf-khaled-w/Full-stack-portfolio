@@ -10,6 +10,14 @@ const getHeaders = () => {
 };
 
 export const api = {
+  // Health check endpoint
+  async checkHealth() {
+    const baseUrl = API_BASE_URL.replace('/api', '');
+    const res = await fetch(`${baseUrl}/health`);
+    if (!res.ok) throw new Error('Health check failed');
+    return res.json();
+  },
+
   // Public GET endpoints
   async getSkills() {
     const res = await fetch(`${API_BASE_URL}/skills`);
