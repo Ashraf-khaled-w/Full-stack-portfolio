@@ -38,6 +38,41 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (activeTab === 'admin' || serverWaking) return;
+
+    const sections = ['hero', 'about', 'skills', 'experience', 'projects', 'certifications', 'contact'];
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '-35% 0px -35% 0px', // Triggers when section occupies the middle 30% of viewport
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Delay slightly to ensure elements are fully painted in DOM
+    const timerId = setTimeout(() => {
+      sections.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) observer.observe(element);
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timerId);
+      observer.disconnect();
+    };
+  }, [activeTab, serverWaking]);
+
   if (serverWaking) {
     return (
       <div className="min-h-screen bg-[#080B11] text-gray-200 flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
