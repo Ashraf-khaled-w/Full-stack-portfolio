@@ -50,7 +50,7 @@ const Admin = () => {
     } catch (err) {
       console.error(err);
       setError(err.message || 'Failed to fetch dashboard data');
-    } fontList: {
+    } finally {
       setLoading(false);
     }
   };
