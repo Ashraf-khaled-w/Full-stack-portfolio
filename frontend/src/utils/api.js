@@ -18,6 +18,14 @@ export const api = {
     return res.json();
   },
 
+  // Resolve upload image URLs dynamically
+  getImageUrl(url) {
+    if (!url) return null;
+    if (url.startsWith('http')) return url;
+    const baseUrl = API_BASE_URL.replace('/api', '');
+    return `${baseUrl}${url}`;
+  },
+
   // Public GET endpoints
   async getSkills() {
     const res = await fetch(`${API_BASE_URL}/skills`);

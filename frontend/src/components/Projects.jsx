@@ -83,11 +83,6 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const getImageUrl = (url) => {
-    if (!url) return null;
-    if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
-  };
 
   const getGradientHeader = (title) => {
     const gradients = [
@@ -122,7 +117,7 @@ const Projects = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, idx) => {
-              const imgUrl = getImageUrl(project.image_url);
+              const imgUrl = api.getImageUrl(project.image_url);
 
               return (
                 <div key={project.id || idx} className="glass-card rounded-2xl overflow-hidden border border-white/5 flex flex-col h-full group">
