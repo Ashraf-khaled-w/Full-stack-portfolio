@@ -94,5 +94,5 @@ pnpm run dev
 ### 4. Admin Portal Login
 Navigate to `http://localhost:5173/` and click **Admin Portal** in the navigation header.
 *   **Default Username**: `ashraf`
-*   **Default Password**: `ashraf_portfolio_secure`
-*(Password can be customized by changing the hashing input in `backend/src/db/seed.js` or updating the table record).*
+*   **Default Password**: `your_custom_secure_password`
+*(Note: You can customize your admin username and password inside the database seeding script at `backend/src/db/seed.js` before running the seeder).*
