@@ -60,13 +60,7 @@ portfolio/
 Ensure you have `pnpm` installed on your machine.
 
 ### 1. Database Connection
-The backend requires a PostgreSQL database. Set the connection string `DATABASE_URL` in `backend/.env`.
-
-```env
-PORT=5000
-DATABASE_URL=postgresql://username:password@your-database-host.neon.tech/neondb?sslmode=require
-JWT_SECRET=your_jwt_secret_key
-```
+The backend requires a PostgreSQL database. Configure `PORT`, `DATABASE_URL`, and `JWT_SECRET` inside your local `backend/.env` file.
 
 ### 2. Seed Database
 Run the seed script in the backend directory to apply the schema and insert all initial CV content:
