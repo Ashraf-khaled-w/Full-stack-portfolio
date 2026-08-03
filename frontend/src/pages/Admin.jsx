@@ -328,14 +328,18 @@ const Admin = () => {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => { setActiveTab(tab.id); setIsFormOpen(false); }}
-                  className={`flex items-center w-full px-4 py-3 rounded-xl text-sm font-semibold transition whitespace-nowrap cursor-pointer ${
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    setIsFormOpen(false);
+                    setError(null);
+                  }}
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                     activeTab === tab.id
-                      ? 'bg-primary/10 text-primary-light border border-primary/20 shadow-inner'
+                      ? 'bg-primary text-white shadow-lg shadow-primary/20'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <i className={`${tab.iconClass} mr-2.5 flex-shrink-0 text-xs`} />
+                  <i className={`${tab.iconClass} mr-3 text-base`} />
                   {tab.name}
                 </button>
               );
@@ -358,257 +362,8 @@ const Admin = () => {
               )}
             </div>
 
-            {/* FORM CONTAINER */}
-            {isFormOpen && (
-              <div className="glass p-6 rounded-2xl border border-white/10">
-                <h4 className="text-lg font-bold text-white mb-4">
-                  {editingItem ? 'Edit' : 'Add New'} {activeTab.slice(0, -1)}
-                </h4>
-                
-                <form onSubmit={handleFormSubmit} className="space-y-4">
-                  
-                  {activeTab === 'projects' && (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Title</label>
-                          <input
-                            type="text"
-                            required
-                            value={projectForm.title}
-                            onChange={e => setProjectForm({ ...projectForm, title: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Tech Stack (comma separated)</label>
-                          <input
-                            type="text"
-                            placeholder="React, Node.js, PostgreSQL"
-                            value={projectForm.tech_stack}
-                            onChange={e => setProjectForm({ ...projectForm, tech_stack: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Short Description</label>
-                        <textarea
-                          required
-                          rows="3"
-                          value={projectForm.description}
-                          onChange={e => setProjectForm({ ...projectForm, description: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
-                        ></textarea>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">GitHub URL</label>
-                          <input
-                            type="url"
-                            value={projectForm.github_url}
-                            onChange={e => setProjectForm({ ...projectForm, github_url: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Live Demo URL</label>
-                          <input
-                            type="url"
-                            value={projectForm.demo_url}
-                            onChange={e => setProjectForm({ ...projectForm, demo_url: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-xs text-gray-400 uppercase font-semibold block">Project Image / Video</label>
-                        <div className="flex items-center space-x-3 bg-white/5 p-3 rounded-lg border border-white/5">
-                          <i className="fa-solid fa-upload text-gray-400 text-sm" />
-                          <input 
-                            type="file"
-                            onChange={e => setImageFile(e.target.files[0])}
-                            className="text-xs text-gray-300 file:bg-primary file:hover:bg-primary-light file:border-none file:text-white file:py-1 file:px-3 file:rounded-md file:mr-3 cursor-pointer"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Architecture Highlight points (One per line)</label>
-                        <textarea
-                          rows="4"
-                          value={projectForm.points}
-                          onChange={e => setProjectForm({ ...projectForm, points: e.target.value })}
-                          placeholder="Engineered a schema-less data modeling engine..."
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
-                        ></textarea>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'skills' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Category</label>
-                        <select
-                          value={skillForm.category}
-                          onChange={e => setSkillForm({ ...skillForm, category: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm bg-dark-card"
-                        >
-                          <option value="Languages">Languages</option>
-                          <option value="Frontend">Frontend</option>
-                          <option value="Backend & Databases">Backend & Databases</option>
-                          <option value="Tools & DevOps">Tools & DevOps</option>
-                          <option value="Core Concepts">Core Concepts</option>
-                        </select>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Skill Name</label>
-                        <input
-                          type="text"
-                          required
-                          value={skillForm.name}
-                          onChange={e => setSkillForm({ ...skillForm, name: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                        />
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Proficiency %</label>
-                        <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          required
-                          value={skillForm.proficiency}
-                          onChange={e => setSkillForm({ ...skillForm, proficiency: parseInt(e.target.value) || 100 })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'experiences' && (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Company</label>
-                          <input
-                            type="text"
-                            required
-                            value={expForm.company}
-                            onChange={e => setExpForm({ ...expForm, company: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Role</label>
-                          <input
-                            type="text"
-                            required
-                            value={expForm.role}
-                            onChange={e => setExpForm({ ...expForm, role: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">Start Date</label>
-                          <input
-                            type="text"
-                            required
-                            value={expForm.start_date}
-                            onChange={e => setExpForm({ ...expForm, start_date: e.target.value })}
-                            placeholder="Dec 2023"
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-xs text-gray-400 uppercase font-semibold">End Date</label>
-                          <input
-                            type="text"
-                            required
-                            value={expForm.end_date}
-                            onChange={e => setExpForm({ ...expForm, end_date: e.target.value })}
-                            placeholder="Present / Jan 2025"
-                            className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Accomplishments (One per line)</label>
-                        <textarea
-                          required
-                          rows="4"
-                          value={expForm.points}
-                          onChange={e => setExpForm({ ...expForm, points: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
-                        ></textarea>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'certifications' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Title</label>
-                        <input
-                          type="text"
-                          required
-                          value={certForm.title}
-                          onChange={e => setCertForm({ ...certForm, title: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Issuer</label>
-                        <input
-                          type="text"
-                          required
-                          value={certForm.issuer}
-                          onChange={e => setCertForm({ ...certForm, issuer: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-xs text-gray-400 uppercase font-semibold">Year</label>
-                        <input
-                          type="text"
-                          required
-                          value={certForm.date}
-                          onChange={e => setCertForm({ ...certForm, date: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center space-x-3 pt-4 border-t border-white/5">
-                    <button
-                      type="submit"
-                      className="px-6 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition cursor-pointer"
-                    >
-                      Save Changes
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsFormOpen(false)}
-                      className="px-6 py-2 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 text-gray-300 font-semibold text-sm transition cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-
-                </form>
-              </div>
-            )}
+            {/* FORM CONTAINER FOR CREATION ONLY */}
+            {isFormOpen && !editingItem && renderForm()}
 
             {/* LIST OR LOADER VIEW */}
             {loading ? (
@@ -635,76 +390,88 @@ const Admin = () => {
               <div className="space-y-4">
                 
                 {activeTab === 'projects' && items.map(proj => (
-                  <div key={proj.id} className="glass p-5 rounded-2xl border border-white/5 flex items-center justify-between gap-4 hover:border-white/10 transition">
-                    <div>
-                      <h4 className="text-lg font-bold text-white">{proj.title}</h4>
-                      <p className="text-xs text-gray-400 mt-1 line-clamp-1">{proj.description}</p>
+                  <React.Fragment key={proj.id}>
+                    <div className="glass p-5 rounded-2xl border border-white/5 flex items-center justify-between gap-4 hover:border-white/10 transition">
+                      <div>
+                        <h4 className="text-lg font-bold text-white">{proj.title}</h4>
+                        <p className="text-xs text-gray-400 mt-1 line-clamp-1">{proj.description}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <button onClick={() => openForm(proj)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
+                          <i className="fa-solid fa-pen text-sm" />
+                        </button>
+                        <button onClick={() => handleDelete(proj.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition border border-red-500/20 cursor-pointer">
+                          <i className="fa-solid fa-trash-can text-sm" />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <button onClick={() => openForm(proj)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
-                        <i className="fa-solid fa-pen text-sm" />
-                      </button>
-                      <button onClick={() => handleDelete(proj.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition border border-red-500/20 cursor-pointer">
-                        <i className="fa-solid fa-trash-can text-sm" />
-                      </button>
-                    </div>
-                  </div>
+                    {isFormOpen && editingItem && editingItem.id === proj.id && renderForm()}
+                  </React.Fragment>
                 ))}
 
                 {activeTab === 'skills' && items.map(skill => (
-                  <div key={skill.id} className="glass p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-primary-light bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full mr-3">
-                        {skill.category}
-                      </span>
-                      <span className="font-bold text-white text-sm">{skill.name}</span>
+                  <React.Fragment key={skill.id}>
+                    <div className="glass p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-primary-light bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full mr-3">
+                          {skill.category}
+                        </span>
+                        <span className="font-bold text-white text-sm">{skill.name}</span>
+                      </div>
+                      <div className="flex items-center space-x-6">
+                        <span className="text-sm font-semibold text-gray-400">{skill.proficiency}%</span>
+                        <div className="flex items-center space-x-2">
+                          <button onClick={() => openForm(skill)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
+                            <i className="fa-solid fa-pen text-xs" />
+                          </button>
+                          <button onClick={() => handleDelete(skill.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
+                            <i className="fa-solid fa-trash-can text-xs" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-6">
-                      <span className="text-sm font-semibold text-gray-400">{skill.proficiency}%</span>
+                    {isFormOpen && editingItem && editingItem.id === skill.id && renderForm()}
+                  </React.Fragment>
+                ))}
+
+                {activeTab === 'experiences' && items.map(exp => (
+                  <React.Fragment key={exp.id}>
+                    <div className="glass p-5 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
+                      <div>
+                        <h4 className="text-base font-bold text-white">{exp.role} <span className="text-gray-400 text-xs font-normal">at {exp.company}</span></h4>
+                        <p className="text-xs text-primary-light font-medium mt-1">{exp.start_date} – {exp.end_date}</p>
+                      </div>
                       <div className="flex items-center space-x-2">
-                        <button onClick={() => openForm(skill)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
+                        <button onClick={() => openForm(exp)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
+                          <i className="fa-solid fa-pen text-sm" />
+                        </button>
+                        <button onClick={() => handleDelete(exp.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
+                          <i className="fa-solid fa-trash-can text-sm" />
+                        </button>
+                      </div>
+                    </div>
+                    {isFormOpen && editingItem && editingItem.id === exp.id && renderForm()}
+                  </React.Fragment>
+                ))}
+
+                {activeTab === 'certifications' && items.map(cert => (
+                  <React.Fragment key={cert.id}>
+                    <div className="glass p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
+                      <div>
+                        <h4 className="text-sm font-bold text-white">{cert.title}</h4>
+                        <p className="text-xs text-gray-400 mt-0.5">{cert.issuer} ({cert.date})</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <button onClick={() => openForm(cert)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
                           <i className="fa-solid fa-pen text-xs" />
                         </button>
-                        <button onClick={() => handleDelete(skill.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
+                        <button onClick={() => handleDelete(cert.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
                           <i className="fa-solid fa-trash-can text-xs" />
                         </button>
                       </div>
                     </div>
-                  </div>
-                ))}
-
-                {activeTab === 'experiences' && items.map(exp => (
-                  <div key={exp.id} className="glass p-5 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
-                    <div>
-                      <h4 className="text-base font-bold text-white">{exp.role} <span className="text-gray-400 text-xs font-normal">at {exp.company}</span></h4>
-                      <p className="text-xs text-primary-light font-medium mt-1">{exp.start_date} – {exp.end_date}</p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button onClick={() => openForm(exp)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
-                        <i className="fa-solid fa-pen text-sm" />
-                      </button>
-                      <button onClick={() => handleDelete(exp.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
-                        <i className="fa-solid fa-trash-can text-sm" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-
-                {activeTab === 'certifications' && items.map(cert => (
-                  <div key={cert.id} className="glass p-4 rounded-2xl border border-white/5 flex items-center justify-between gap-4">
-                    <div>
-                      <h4 className="text-sm font-bold text-white">{cert.title}</h4>
-                      <p className="text-xs text-gray-400 mt-0.5">{cert.issuer} ({cert.date})</p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button onClick={() => openForm(cert)} className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white border border-white/5 hover:border-white/10 transition cursor-pointer">
-                        <i className="fa-solid fa-pen text-xs" />
-                      </button>
-                      <button onClick={() => handleDelete(cert.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer">
-                        <i className="fa-solid fa-trash-can text-xs" />
-                      </button>
-                    </div>
-                  </div>
+                    {isFormOpen && editingItem && editingItem.id === cert.id && renderForm()}
+                  </React.Fragment>
                 ))}
 
                 {activeTab === 'messages' && items.map(msg => (
