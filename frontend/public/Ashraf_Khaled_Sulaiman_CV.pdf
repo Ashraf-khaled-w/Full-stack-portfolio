@@ -1,0 +1,3 @@
+Ashraf Khaled Sulaiman CV Placeholder.
+Please overwrite this file with your actual CV PDF document (retaining the filename: Ashraf_Khaled_Sulaiman_CV.pdf).
+This file will be compiled into the frontend public assets folder during git pushes and vercel builds, allowing visitors to instantly download your resume from the Hero and About sections!
