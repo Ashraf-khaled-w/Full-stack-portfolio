@@ -278,6 +278,258 @@ const Admin = () => {
     );
   }
 
+  const renderForm = () => {
+    return (
+      <div className="glass p-6 rounded-2xl border border-white/10 my-4 w-full">
+        <h4 className="text-lg font-bold text-white mb-4">
+          {editingItem ? 'Edit' : 'Add New'} {activeTab === 'experiences' ? 'Experience' : activeTab === 'certifications' ? 'Credentials' : activeTab.slice(0, -1)}
+        </h4>
+        
+        <form onSubmit={handleFormSubmit} className="space-y-4 text-left">
+          
+          {activeTab === 'projects' && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={projectForm.title || ''}
+                    onChange={e => setProjectForm({ ...projectForm, title: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Tech Stack (comma separated)</label>
+                  <input
+                    type="text"
+                    placeholder="React, Node.js, PostgreSQL"
+                    value={projectForm.tech_stack || ''}
+                    onChange={e => setProjectForm({ ...projectForm, tech_stack: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Short Description</label>
+                <textarea
+                  required
+                  rows="3"
+                  value={projectForm.description || ''}
+                  onChange={e => setProjectForm({ ...projectForm, description: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
+                ></textarea>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">GitHub URL</label>
+                  <input
+                    type="url"
+                    value={projectForm.github_url || ''}
+                    onChange={e => setProjectForm({ ...projectForm, github_url: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Live Demo URL</label>
+                  <input
+                    type="url"
+                    value={projectForm.demo_url || ''}
+                    onChange={e => setProjectForm({ ...projectForm, demo_url: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs text-gray-400 uppercase font-semibold block">Project Image / Video</label>
+                <div className="flex items-center space-x-3 bg-white/5 p-3 rounded-lg border border-white/5">
+                  <i className="fa-solid fa-upload text-gray-400 text-sm" />
+                  <input 
+                    type="file"
+                    onChange={e => setImageFile(e.target.files[0])}
+                    className="text-xs text-gray-300 file:bg-primary file:hover:bg-primary-light file:border-none file:text-white file:py-1 file:px-3 file:rounded-md file:mr-3 cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Architecture Highlight points (One per line)</label>
+                <textarea
+                  rows="4"
+                  value={projectForm.points || ''}
+                  onChange={e => setProjectForm({ ...projectForm, points: e.target.value })}
+                  placeholder="Engineered a schema-less data modeling engine..."
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
+                ></textarea>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'skills' && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Category</label>
+                <select
+                  value={skillForm.category || 'Languages'}
+                  onChange={e => setSkillForm({ ...skillForm, category: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm bg-dark-card"
+                >
+                  <option value="Languages">Languages</option>
+                  <option value="Frontend">Frontend</option>
+                  <option value="Backend & Databases">Backend & Databases</option>
+                  <option value="Tools & DevOps">Tools & DevOps</option>
+                  <option value="Core Concepts">Core Concepts</option>
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Skill Name</label>
+                <input
+                  type="text"
+                  required
+                  value={skillForm.name || ''}
+                  onChange={e => setSkillForm({ ...skillForm, name: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Proficiency %</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  required
+                  value={skillForm.proficiency || 100}
+                  onChange={e => setSkillForm({ ...skillForm, proficiency: parseInt(e.target.value) || 100 })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'experiences' && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Company</label>
+                  <input
+                    type="text"
+                    required
+                    value={expForm.company || ''}
+                    onChange={e => setExpForm({ ...expForm, company: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Role</label>
+                  <input
+                    type="text"
+                    required
+                    value={expForm.role || ''}
+                    onChange={e => setExpForm({ ...expForm, role: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">Start Date</label>
+                  <input
+                    type="text"
+                    required
+                    value={expForm.start_date || ''}
+                    onChange={e => setExpForm({ ...expForm, start_date: e.target.value })}
+                    placeholder="Dec 2023"
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-gray-400 uppercase font-semibold">End Date</label>
+                  <input
+                    type="text"
+                    required
+                    value={expForm.end_date || ''}
+                    onChange={e => setExpForm({ ...expForm, end_date: e.target.value })}
+                    placeholder="Present / Jan 2025"
+                    className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Accomplishments (One per line)</label>
+                <textarea
+                  required
+                  rows="4"
+                  value={expForm.points || ''}
+                  onChange={e => setExpForm({ ...expForm, points: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm resize-none"
+                ></textarea>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'certifications' && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Title</label>
+                <input
+                  type="text"
+                  required
+                  value={certForm.title || ''}
+                  onChange={e => setCertForm({ ...certForm, title: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Issuer</label>
+                <input
+                  type="text"
+                  required
+                  value={certForm.issuer || ''}
+                  onChange={e => setCertForm({ ...certForm, issuer: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs text-gray-400 uppercase font-semibold">Year</label>
+                <input
+                  type="text"
+                  required
+                  value={certForm.date || ''}
+                  onChange={e => setCertForm({ ...certForm, date: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg glass-input text-white text-sm"
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center space-x-3 pt-4 border-t border-white/5">
+            <button
+              type="submit"
+              className="px-6 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition cursor-pointer"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsFormOpen(false)}
+              className="px-6 py-2 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 text-gray-300 font-semibold text-sm transition cursor-pointer"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#080B11] pt-28 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
