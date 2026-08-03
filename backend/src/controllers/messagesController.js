@@ -79,3 +79,18 @@ export const addMessage = async (req, res) => {
     res.status(500).json({ message: 'Error saving message' });
   }
 };
+
+export const deleteMessage = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('DELETE FROM messages WHERE id = $1 RETURNING *', [id]);
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Message not found' });
+    }
+    res.json({ message: 'Message deleted successfully', messageRecord: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting message:', error);
+    res.status(500).json({ message: 'Error deleting message' });
+  }
+};
+

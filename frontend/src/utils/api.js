@@ -202,6 +202,16 @@ export const api = {
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'Failed to fetch messages');
     return data;
+  },
+
+  async deleteMessage(id) {
+    const res = await fetch(`${API_BASE_URL}/messages/${id}`, {
+      method: 'DELETE',
+      headers: getHeaders()
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed to delete message');
+    return data;
   }
 };
 export default api;

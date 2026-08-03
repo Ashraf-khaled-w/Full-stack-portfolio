@@ -4,7 +4,7 @@ import { getSkills, addSkill, updateSkill, deleteSkill } from '../controllers/sk
 import { getExperiences, addExperience, updateExperience, deleteExperience } from '../controllers/experiencesController.js';
 import { getProjects, addProject, updateProject, deleteProject } from '../controllers/projectsController.js';
 import { getCertifications, addCertification, updateCertification, deleteCertification } from '../controllers/certificationsController.js';
-import { getMessages, addMessage } from '../controllers/messagesController.js';
+import { getMessages, addMessage, deleteMessage } from '../controllers/messagesController.js';
 import authMiddleware from '../middleware/auth.js';
 import upload from '../middleware/upload.js';
 
@@ -40,5 +40,6 @@ router.delete('/certifications/:id', authMiddleware, deleteCertification);
 // Messages routes
 router.get('/messages', authMiddleware, getMessages);
 router.post('/messages', addMessage);
+router.delete('/messages/:id', authMiddleware, deleteMessage);
 
 export default router;

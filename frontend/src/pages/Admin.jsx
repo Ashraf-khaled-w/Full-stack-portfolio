@@ -84,6 +84,7 @@ const Admin = () => {
       else if (activeTab === 'skills') await api.deleteSkill(id);
       else if (activeTab === 'experiences') await api.deleteExperience(id);
       else if (activeTab === 'certifications') await api.deleteCertification(id);
+      else if (activeTab === 'messages') await api.deleteMessage(id);
       showToast('Item deleted successfully.');
       fetchData();
     } catch (err) {
@@ -701,9 +702,18 @@ const Admin = () => {
                         <h4 className="font-bold text-white text-sm">{msg.name}</h4>
                         <a href={`mailto:${msg.email}`} className="text-xs text-primary-light hover:underline font-semibold">{msg.email}</a>
                       </div>
-                      <span className="text-[10px] text-gray-500 font-medium">
-                        {new Date(msg.created_at).toLocaleString()}
-                      </span>
+                      <div className="flex items-center space-x-3">
+                        <span className="text-[10px] text-gray-500 font-medium">
+                          {new Date(msg.created_at).toLocaleString()}
+                        </span>
+                        <button 
+                          onClick={() => handleDelete(msg.id)} 
+                          className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/20 transition cursor-pointer"
+                          title="Delete Message"
+                        >
+                          <i className="fa-solid fa-trash-can text-xs" />
+                        </button>
+                      </div>
                     </div>
                     <div>
                       <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Subject: {msg.subject}</p>
