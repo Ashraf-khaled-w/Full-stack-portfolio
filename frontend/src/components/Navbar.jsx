@@ -29,10 +29,19 @@ const Navbar = ({ activeTab, setActiveTab }) => {
   const handleNavClick = (id) => {
     setActiveTab(id);
     setIsOpen(false);
+    
+    // Disable scrollspy temporarily during smooth scroll transition
+    window.__isManualScrolling = true;
+    
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    
+    // Enable scrollspy after smooth scroll animation completes
+    setTimeout(() => {
+      window.__isManualScrolling = false;
+    }, 850);
   };
 
   return (

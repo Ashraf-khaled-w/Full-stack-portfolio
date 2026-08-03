@@ -50,6 +50,8 @@ function App() {
     };
 
     const observerCallback = (entries) => {
+      if (window.__isManualScrolling) return;
+
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setActiveTab(entry.target.id);
