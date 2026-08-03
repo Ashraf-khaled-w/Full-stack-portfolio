@@ -40,40 +40,38 @@ const Navbar = ({ activeTab, setActiveTab }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12">
           {/* Logo / Name */}
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => handleNavClick('hero')}>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent tracking-wider">
+          <div className="flex-shrink-0 cursor-pointer flex flex-col justify-center" onClick={() => handleNavClick('hero')}>
+            <span className="text-lg sm:text-xl font-extrabold bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent tracking-wider leading-none">
               ASHRAF KHALED
             </span>
-            <span className="hidden sm:inline text-xs text-gray-500 block -mt-1 font-medium tracking-tight">
+            <span className="text-[9px] sm:text-[10px] text-gray-400 font-bold tracking-wider uppercase mt-1 opacity-80 leading-none">
               Full-Stack Software Engineer
             </span>
           </div>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center space-x-1 lg:space-x-4">
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-3">
             {navLinks.map((link) => {
               return (
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link.id)}
-                  className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                  className={`px-2 lg:px-3 py-1.5 rounded-lg text-xs lg:text-sm font-medium transition-all duration-200 ${
                     activeTab === link.id
-                      ? 'text-primary-light bg-white/5 shadow-inner border border-white/5'
+                      ? 'text-primary-light bg-white/5 border border-white/5 shadow-inner'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <i className={`${link.iconClass} mr-1.5 text-xs`} />
                   {link.name}
                 </button>
               );
             })}
             <button
               onClick={() => handleNavClick('admin')}
-              className={`flex items-center px-3.5 py-1.5 ml-4 rounded-md text-sm font-medium border border-accent/30 hover:border-accent text-accent-light hover:text-white hover:bg-accent/10 transition-all duration-200 ${
+              className={`px-3 py-1.5 ml-2 lg:ml-4 rounded-lg text-xs lg:text-sm font-semibold border border-accent/30 hover:border-accent text-accent-light hover:text-white hover:bg-accent/10 transition-all duration-200 ${
                 activeTab === 'admin' ? 'bg-accent/20 border-accent text-white' : ''
               }`}
             >
-              <i className="fa-solid fa-shield-halved mr-1.5 text-xs" />
               Admin Portal
             </button>
           </div>
