@@ -83,6 +83,22 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') {
+          setSelectedProject(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [selectedProject]);
+
 
   const getGradientHeader = (title) => {
     const gradients = [
@@ -96,7 +112,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden border-t border-white/5 bg-[#0A0E1A]/40">
+    <section id="projects" className={`py-24 relative overflow-hidden border-t border-white/5 bg-[#0A0E1A]/40 transition-all duration-300 ${selectedProject ? 'z-50' : 'z-10'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Title */}
@@ -214,15 +230,18 @@ const Projects = () => {
 
         {/* Detail Modal */}
         {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedProject(null)}
+          >
             {/* Backdrop */}
-            <div 
-              className="absolute inset-0 bg-black/85 backdrop-blur-sm"
-              onClick={() => setSelectedProject(null)}
-            ></div>
+            <div className="absolute inset-0 bg-black/85 backdrop-blur-sm"></div>
 
             {/* Modal Box */}
-            <div className="relative glass w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl flex flex-col animate-in fade-in zoom-in duration-200">
+            <div 
+              className="relative glass w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl flex flex-col animate-in fade-in zoom-in duration-200"
+              onClick={(e) => e.stopPropagation()}
+            >
               <button 
                 onClick={() => setSelectedProject(null)}
                 className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer z-10"
