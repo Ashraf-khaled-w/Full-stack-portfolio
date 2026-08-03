@@ -616,8 +616,20 @@ const Admin = () => {
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary-light"></div>
               </div>
             ) : items.length === 0 ? (
-              <div className="glass p-12 rounded-2xl border border-white/5 text-center text-gray-500">
-                No items found. Create some!
+              <div className="glass p-12 rounded-2xl border border-white/5 text-center text-gray-400 space-y-2">
+                <i className={`${
+                  activeTab === 'messages' 
+                    ? 'fa-solid fa-inbox text-3xl mb-1 block opacity-30 text-primary-light' 
+                    : 'fa-solid fa-folder-open text-3xl mb-1 block opacity-30 text-primary-light'
+                }`} />
+                <p className="font-bold text-white text-base">
+                  {activeTab === 'messages' ? 'Your Inbox is Empty' : `No ${activeTab} Found`}
+                </p>
+                <p className="text-xs text-gray-500 max-w-sm mx-auto leading-relaxed">
+                  {activeTab === 'messages' 
+                    ? 'Messages submitted by visitors through the contact form will appear here dynamically.' 
+                    : `Click the "Add New" button above to start populating your ${activeTab} records.`}
+                </p>
               </div>
             ) : (
               <div className="space-y-4">
