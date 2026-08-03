@@ -112,8 +112,8 @@ async function runSeed() {
         title: 'DataForge',
         description: 'Full-Stack Custom Data Modeling Platform',
         tech_stack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Neon', 'Prisma'],
-        github_url: 'https://github.com/Ashraf-khaled-w',
-        demo_url: 'https://github.com/Ashraf-khaled-w',
+        github_url: 'https://github.com/Ashraf-khaled-w/DataForge',
+        demo_url: 'https://data-forge-lyart.vercel.app/',
         image_url: 'dataforge.png',
         details: JSON.stringify({
           points: [
@@ -130,8 +130,8 @@ async function runSeed() {
         title: 'Lead Report Handler',
         description: 'Telesales Analytics Tool',
         tech_stack: ['React', 'Hooks', 'LocalStorage', 'Tailwind CSS'],
-        github_url: 'https://github.com/Ashraf-khaled-w',
-        demo_url: 'https://github.com/Ashraf-khaled-w',
+        github_url: 'https://github.com/Ashraf-khaled-w/Lead-Report-Handler-React-version-',
+        demo_url: 'https://lead-report-handler-react.vercel.app/',
         image_url: 'lead_report_handler.png',
         details: JSON.stringify({
           points: [
@@ -144,8 +144,8 @@ async function runSeed() {
         title: 'Express & EJS Blog Platform',
         description: 'Event-Driven Content Management System',
         tech_stack: ['Node.js', 'Express', 'EJS', 'PostgreSQL'],
-        github_url: 'https://github.com/Ashraf-khaled-w',
-        demo_url: 'https://github.com/Ashraf-khaled-w',
+        github_url: 'https://github.com/Ashraf-khaled-w/NodeJS-exprees-EJS-Blog-Wed-site-',
+        demo_url: null,
         image_url: 'ejs_blog_platform.png',
         details: JSON.stringify({
           points: [

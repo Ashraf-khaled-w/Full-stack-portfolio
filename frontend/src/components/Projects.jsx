@@ -6,8 +6,8 @@ const fallbackProjects = [
     title: 'DataForge',
     description: 'Full-Stack Custom Data Modeling Platform',
     tech_stack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Neon', 'Prisma'],
-    github_url: 'https://github.com/Ashraf-khaled-w',
-    demo_url: 'https://github.com/Ashraf-khaled-w',
+    github_url: 'https://github.com/Ashraf-khaled-w/DataForge',
+    demo_url: 'https://data-forge-lyart.vercel.app/',
     image_url: 'dataforge.png',
     details: {
       points: [
@@ -24,8 +24,8 @@ const fallbackProjects = [
     title: 'Lead Report Handler',
     description: 'Telesales Analytics Tool',
     tech_stack: ['React', 'Hooks', 'LocalStorage', 'Tailwind CSS'],
-    github_url: 'https://github.com/Ashraf-khaled-w',
-    demo_url: 'https://github.com/Ashraf-khaled-w',
+    github_url: 'https://github.com/Ashraf-khaled-w/Lead-Report-Handler-React-version-',
+    demo_url: 'https://lead-report-handler-react.vercel.app/',
     image_url: 'lead_report_handler.png',
     details: {
       points: [
@@ -38,8 +38,8 @@ const fallbackProjects = [
     title: 'Express & EJS Blog Platform',
     description: 'Event-Driven Content Management System',
     tech_stack: ['Node.js', 'Express', 'EJS', 'PostgreSQL'],
-    github_url: 'https://github.com/Ashraf-khaled-w',
-    demo_url: 'https://github.com/Ashraf-khaled-w',
+    github_url: 'https://github.com/Ashraf-khaled-w/NodeJS-exprees-EJS-Blog-Wed-site-',
+    demo_url: null,
     image_url: 'ejs_blog_platform.png',
     details: {
       points: [
@@ -222,28 +222,30 @@ const Projects = () => {
             ></div>
 
             {/* Modal Box */}
-            <div className="relative glass w-full max-w-2xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div className="relative glass w-full max-w-2xl max-h-[90vh] sm:max-h-[85vh] rounded-2xl border border-white/10 shadow-2xl flex flex-col animate-in fade-in zoom-in duration-200">
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer"
+                className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer z-10"
               >
                 <i className="fa-solid fa-xmark text-lg" />
               </button>
 
-              <div className="p-8">
-                <span className="text-xs font-bold text-primary-light bg-primary/10 border border-primary/20 px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
-                  Architecture Highlights
-                </span>
-                
-                <h3 className="text-2xl font-bold text-white mb-2">{selectedProject.title}</h3>
-                <p className="text-sm text-gray-400 mb-6">{selectedProject.description}</p>
+              <div className="overflow-y-auto p-5 sm:p-8 space-y-6 flex-grow custom-scrollbar">
+                <div>
+                  <span className="text-xs font-bold text-primary-light bg-primary/10 border border-primary/20 px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">
+                    Architecture Highlights
+                  </span>
+                  
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 pr-8">{selectedProject.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">{selectedProject.description}</p>
+                </div>
 
-                <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2">
+                <div className="space-y-4">
                   {selectedProject.details?.points ? (
                     selectedProject.details.points.map((point, i) => (
                       <div key={i} className="flex items-start bg-white/5 p-4 rounded-xl border border-white/5 hover:border-white/10 transition duration-200">
                         <span className="w-2 h-2 rounded-full bg-accent-light mt-1.5 mr-3 flex-shrink-0"></span>
-                        <p className="text-sm text-gray-300 leading-relaxed">{point}</p>
+                        <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">{point}</p>
                       </div>
                     ))
                   ) : (
@@ -251,7 +253,7 @@ const Projects = () => {
                   )}
                 </div>
 
-                <div className="flex flex-wrap gap-2 mt-6 pt-4 border-t border-white/5">
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                   {selectedProject.tech_stack.map((tech, i) => (
                     <span key={i} className="text-xs bg-primary/10 text-primary-light border border-primary/20 px-2.5 py-0.5 rounded-full">
                       {tech}

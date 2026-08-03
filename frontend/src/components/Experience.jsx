@@ -84,8 +84,8 @@ const Experience = () => {
                   <i className="fa-solid fa-briefcase text-sm" />
                 </div>
 
-                {/* Left Column (Desktop Date) */}
-                <div className={`hidden md:block w-[45%] text-right ${index % 2 === 0 ? 'order-1' : 'order-2'}`}>
+                {/* Left/Right Column (Desktop Date) */}
+                <div className={`hidden md:block w-[45%] ${index % 2 === 0 ? 'text-right order-1' : 'text-left order-2'}`}>
                   <span className="inline-flex items-center text-sm font-semibold text-primary-light bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
                     <i className="fa-solid fa-calendar-days mr-1.5 text-xs" />
                     {exp.start_date} – {exp.end_date}
